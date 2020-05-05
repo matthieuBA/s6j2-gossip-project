@@ -1,0 +1,23 @@
+
+<script type="text/javascript">window.setTimeout("document.getElementById('close').style.display='none';", 2000); </script>
+<% flash.each do |key, value| %>
+<div id="close" class="<%= flash_class(key) %>" role="alert">
+  <%= value %>
+</div>
+
+<% end %>
+<form action= <%= gossips_path %> method="POST">
+  <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %> >
+  <input type="text" name="gossip_title">
+  <input type="text" name="gossip_content">
+  <input type="submit" value="create gossips">
+</form>
+<% if @gossips.errors.any? %>
+  <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
+  <ul>
+    <% @gossips.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+

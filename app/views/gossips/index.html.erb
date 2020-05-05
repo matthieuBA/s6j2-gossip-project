@@ -1,0 +1,14 @@
+<script type="text/javascript">window.setTimeout("document.getElementById('close').style.display='none';", 2000); </script>
+<% flash.each do |key, value| %>
+<div id="close" class="<%= flash_class(key) %>" role="alert">
+  <%= value %>
+</div>
+<% end %>
+
+
+
+<% @gossips.each do |gossip| %>
+<% user = User.find_by(id: gossip.user_id) %>
+
+<%= user.first_name%> <%= user.last_name%> ####  <%= gossip.title %>  ####  <%= gossip.content %>  <br/>
+<% end %>

@@ -1,0 +1,27 @@
+<% @city = City.find_by(id: @city) %>
+<div class="card" >
+  <div class="card-body">
+    <h5 class="card-title"><%= @city.name %></h5>
+    <% users = User.where(city_id: @city.id) %>
+<% users.each do |user| %>
+    User : <a class="card-link"><%= link_to "#{user.first_name+" "+user.last_name}", "/user/#{user.id}" %></a><br/>
+    <% end %>
+  </div>
+</div>
+<% gossips=Gossip.all %>
+<% gossips.each do |gossip| %>
+<% user=User.find_by(id: gossip.user_id )%>
+<% city = (City.find_by(id: user.city_id))%>
+
+<% if @city == city  %>
+<div class="card" >
+  <div class="card-body">
+    <h5 class="card-title"><%= gossip.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%= link_to "#{user.first_name+" "+user.last_name}", "/user/#{user.id}" %></h6>
+
+    <p class="card-text"><%= gossip.content %></p>
+    Gossip : <a href="#" class="card-link"><%= link_to "#{gossip.id}", "/gossip/#{gossip.id}" %></a><br/>
+  </div>
+</div>
+<% end %>
+<% end %>
