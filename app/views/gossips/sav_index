@@ -1,0 +1,7 @@
+<% if logged_in? %>
+<h1>You are Logged As : , <%= current_user.email %></h1>
+<%= button_to "Se déconnecter", session_path(session.id), method: :delete %>
+<% else %>
+<%= button_to "Login", new_session_path, method: :get%>
+<%= button_to "Sign Up", new_user_path, method: :get%>
+<%end%>
