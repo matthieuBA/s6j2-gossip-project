@@ -1,14 +1,44 @@
-<script type="text/javascript">window.setTimeout("document.getElementById('close').style.display='none';", 2000); </script>
 <% flash.each do |key, value| %>
 <div id="close" class="<%= flash_class(key) %>" role="alert">
   <%= value %>
 </div>
 <% end %>
+<h1>Welcome</h1>
+<% if logged_in? %>
+<h1>You are Logged In, <%= current_user.email %></h1>
+<%end%>
+<%= button_to "Login", new_session_path, method: :get%>
+<%= button_to "Sign Up", new_user_path, method: :get%>
+<%= button_to "Se déconnecter", session_path(session.id), method: :delete %>
 
 
 
 <% @gossips.each do |gossip| %>
-<% user = User.find_by(id: gossip.user_id) %>
 
-<%= user.first_name%> <%= user.last_name%> ####  <%= gossip.title %>  ####  <%= gossip.content %>  <br/>
+<% user = User.find_by(id: gossip.user_id) %>
+<div class="list-group">
+   <% if user.id == session[:user_id] %>
+   <a href="<%= gossip_path(gossip.id) %>" class="list-group-item list-group-item-action">
+   <% end %>
+  
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><%= gossip.title %></h5>
+      
+      <small class="text-muted"><%= gossip.updated_at %></small>
+    </div>
+    
+    <% gossip_comments_count = gossip.comments.all.count %>
+    <p class="mb-1"><%= gossip.content %></p>
+    </a>
+    <a href="/gossips/<%= gossip.id %>/comment/<%= gossip.id %>" class="list-group-item list-group-item-action"> <%= gossip_comments_count %> </a>
+    <a href="<%= user_path(user.id) %>" class="list-group-item list-group-item-action"> <%=user.first_name%>  <%=user.last_name%></a>
+    <a href="<%= gossip_path(gossip.id) %>" class="btn btn-danger" data-confirm="etes vous sur de vouloir supprimer ce gossip ?" data-method="DELETE"> SUPPRIMER</a>
+
+</div>
+<br/>
 <% end %>
+
+
+
+
+

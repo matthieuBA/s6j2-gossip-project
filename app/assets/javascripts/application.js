@@ -15,5 +15,4 @@
 //=require turbolinks
 //=require_tree .
 
-console.log("custom js file loaded")
-
+window.setTimeout("document.getElementById('close').style.display='none';", 2000); 

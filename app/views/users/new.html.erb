@@ -1,0 +1,17 @@
+<h1>Sign Up</h1>
+<%= form_for @user do |f|%> 
+<%= f.label :first_name%><br> 
+<%= f.text_field :first_name%><br> 
+<%= f.label :last_name%><br> 
+<%= f.text_field :last_name%><br> 
+<%= f.label :email%><br> 
+<%= f.text_field :email%><br> 
+<%= f.label :password%><br> 
+<%= f.password_field :password%><br> 
+<%= f.label :city_id%><br> 
+<%= f.text_field :city_id%><br> 
+<%= f.submit %>
+
+<%end%>
+
+<%= button_to "Login", new_session_path, method: :get%>

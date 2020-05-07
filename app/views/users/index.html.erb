@@ -1,0 +1,12 @@
+<% @users.order(:first_name).each do |user| %>
+<div class="card" >
+  <div class="card-body">
+    User : <a class="card-link"><%= link_to "#{user.first_name} #{user.last_name}",user_path(user.id) %></a><br/>
+    Descripton : <%= user.description%><br/>
+    E-mail : <%= user.email%><br/>
+    Age : <%= user.age%><br/>
+    <% city = (City.find_by(id: user.city_id))%>
+    City : <a class="card-link"><%= link_to "#{city.name}",city_path(user.city_id) %></a><br/>
+  </div>
+</div>
+<% end %>

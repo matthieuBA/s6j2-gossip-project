@@ -1,8 +1,8 @@
 class CreateGostags < ActiveRecord::Migration[5.2]
   def change
-    create_table :gostags do |t|
+    # create_table :gostags do |t|
 
-      t.timestamps
+    #   t.timestamps
     end
   end
 end

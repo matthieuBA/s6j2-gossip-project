@@ -1,5 +1,5 @@
 
-<script type="text/javascript">window.setTimeout("document.getElementById('close').style.display='none';", 2000); </script>
+
 <% flash.each do |key, value| %>
 <div id="close" class="<%= flash_class(key) %>" role="alert">
   <%= value %>
@@ -12,10 +12,10 @@
   <input type="text" name="gossip_content">
   <input type="submit" value="create gossips">
 </form>
-<% if @gossips.errors.any? %>
+<% if @gossip.errors.any? %>
   <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>
   <ul>
-    <% @gossips.errors.full_messages.each do |message| %>
+    <% @gossip.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
   </ul>

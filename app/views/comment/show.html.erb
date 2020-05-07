@@ -1,0 +1,32 @@
+  <br/>
+<br/>
+<br/>
+
+<% user = User.find_by(id: @gossip.user_id) %>
+<% city = (City.find_by(id: user.city_id))%>
+      <p>L'auteur: <%= user.first_name %> <%= user.last_name %></p>
+
+   <p>Ville: <%= city.name%> </p>
+
+      <h5><%= @gossip.title %></h5>
+      <p ><%= @gossip.content %></p>
+
+      <h2>Commentaires (<%= @gossip_comments_count %>)   </h2>
+      <% @gossip.comments.each do |coms| %>
+
+      <%= User.find(coms.user_id).first_name %><br>
+      <%= coms.content%><br>
+
+      <a href="/gossips/<%= @gossip.id %>/comment/<%=coms.id%>/edit">edit</a>
+        <a href="/gossips/<%= @gossip.id %>/comment/<%=coms.id%>/" data-confirm="Are you sure ?" data-method="delete">Delete</a>
+
+      <!-- <%= link_to "Edit ", edit_gossip_comment_path() %>--><br><br><br>
+      <%end%>
+<br/><br/><br/><br/>
+    <%= form_tag url_for(action: 'create'), method: "comment" do %>
+<input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %> >
+      <%= label_tag 'Content' %>
+      <%= text_area_tag 'content', @comment.content %>
+      <br /> <br />
+      <%= submit_tag "Create comment" %>
+<% end %>

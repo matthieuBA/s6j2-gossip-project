@@ -6,9 +6,9 @@
 
 <div class="card" >
   <div class="card-body">
-    City : <a href="#" class="card-link"><%= link_to "#{city.name}", "/city/#{city.id}" %></a><br/>
+    City : <a href="#" class="card-link"><%= link_to "#{city.name}", city_path(city.id) %></a><br/>
     <% users.each do |user| %>
-    User : <a href="#" class="card-link"><%= link_to "#{user.first_name+" "+user.last_name}", "/user/#{user.id}" %></a><br/>
+    User : <a href="#" class="card-link"><%= link_to "#{user.first_name+" "+user.last_name}", user_path(user.id) %></a><br/>
     <% end %>
   </div>
 </div>

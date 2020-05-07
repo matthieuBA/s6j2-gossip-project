@@ -1,1 +1,14 @@
-<%= @gossips.title %><br/>
+<%= @gossip.title %><br/>
+<%= @gossip.content %><br/>
+<% user=User.find_by(id: @gossip.user_id )%>
+<% city = (City.find_by(id: user.city_id))%>
+User : <a class="card-link"><%= link_to "#{user.first_name+" "+user.last_name}", user_path(user.id) %></a><br/>
+City : <a class="card-link"><%= link_to "#{city.name} ", city_path(city.id) %></a><br/>
+
+
+   <% if user.id == session[:user_id] %>
+   <%= link_to "edit gossip", edit_gossip_path%>
+   <% end %>
+   <%= link_to "commentaires", gossip_comment_path(params[:id]) %>
+
+<h2>Commentaires (<%= @gossip_comments_count %>)</h2>
