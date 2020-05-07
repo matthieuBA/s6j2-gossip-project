@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   # skip_before_action :authorized, only: [:new, :create]
+  before_action :authenticate_user, only: [:index, :show]
 
   def new
     @user = User.new

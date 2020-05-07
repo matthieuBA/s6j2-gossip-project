@@ -29,9 +29,19 @@
     </div>
     
     <% gossip_comments_count = gossip.comments.all.count %>
+    <% gossip_likes_count = gossip.likes.all.count %>
     <p class="mb-1"><%= gossip.content %></p>
     </a>
     <a href="/gossips/<%= gossip.id %>/comment/<%= gossip.id %>" class="list-group-item list-group-item-action"> <%= gossip_comments_count %> </a>
+    <% if logged_in? %>
+    <% pre_like = gossip.likes.find { |like| like.user_id == session[:user_id]} %>
+<% if pre_like %>
+  <%= button_to 'Unlike', gossip_like_path(gossip, pre_like), method: :delete %>
+<% else %>
+  <%= button_to 'Like', gossip_likes_path(gossip), method: :post %>
+<% end %>
+<%end%>
+<h2>Likes (<%= gossip_likes_count %>)</h2>
     <a href="<%= user_path(user.id) %>" class="list-group-item list-group-item-action"> <%=user.first_name%>  <%=user.last_name%></a>
     
    <% if user.id == session[:user_id] %>
