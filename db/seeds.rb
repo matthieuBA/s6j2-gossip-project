@@ -13,16 +13,16 @@ require "faker"
   puts "create city #{i}"
 end
 puts "END OF CITIES"
-user = User.create!(first_name: "anonymous", last_name: "anonymous", description: Faker::DcComics.title, email: Faker::Internet.email, age: rand(18..99), city_id: City.all.sample.id)
+user = User.create!(first_name: "anonymous", last_name: "anonymous", description: Faker::DcComics.title, email: Faker::Internet.email, age: rand(18..99), city_id: City.all.sample.id, password: "blank")
 
 10.times do |i|
   x = rand(1..5)
   x.times do
     puts "create user #{i}"
-    user = User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::DcComics.title, email: Faker::Internet.email, age: rand(18..99), city_id: City.all.sample.id)
+    user = User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::DcComics.title, email: Faker::Internet.email, age: rand(18..99), city_id: City.all.sample.id, password: "blank")
     n = rand(2..10)
     n.times do
-      puts "create gossip and tag #{i}"
+      puts "create gossip#{i}"
       gossip = Gossip.create!(title: Faker::DcComics.title, content: Faker::ChuckNorris.fact, user_id: user.id)
       # gostag = Gostag.create(gossip_id: Gossip.all.sample.id, tag_id: Tag.all.sample.id)
     end

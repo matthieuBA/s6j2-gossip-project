@@ -4,12 +4,15 @@ Rails.application.routes.draw do
   root to: "gossips#index"
   resources :gossips do
     resources :comment
+    resources :likes
   end
+
   resources :users
   resources :cities
   resources :sessions
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  get "welcome", to: "sessions#welcome"
-  get "authorized", to: "sessions#page_requires_login"
+
+  # get "login", to: "sessions#new"
+  # post "login", to: "sessions#create"
+  # get "welcome", to: "sessions#welcome"
+  # get "authorized", to: "sessions#page_requires_login"
 end

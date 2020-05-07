@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_073552) do
+ActiveRecord::Schema.define(version: 2020_05_07_122622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,22 +41,13 @@ ActiveRecord::Schema.define(version: 2020_05_07_073552) do
     t.index ["user_id"], name: "index_gossips_on_user_id"
   end
 
-  create_table "gossips_tags", force: :cascade do |t|
-    t.bigint "gossips_id"
-    t.bigint "tags_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["gossips_id"], name: "index_gossips_tags_on_gossips_id"
-    t.index ["tags_id"], name: "index_gossips_tags_on_tags_id"
-  end
-
-  create_table "gostags", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
     t.bigint "gossip_id"
-    t.bigint "tag_id"
-    t.index ["gossip_id"], name: "index_gostags_on_gossip_id"
-    t.index ["tag_id"], name: "index_gostags_on_tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gossip_id"], name: "index_likes_on_gossip_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "private_messages", force: :cascade do |t|
@@ -87,7 +78,4 @@ ActiveRecord::Schema.define(version: 2020_05_07_073552) do
     t.string "password_digest"
     t.index ["city_id"], name: "index_users_on_city_id"
   end
-
-  add_foreign_key "gostags", "gossips"
-  add_foreign_key "gostags", "tags"
 end

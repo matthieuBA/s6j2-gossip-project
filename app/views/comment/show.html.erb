@@ -16,10 +16,10 @@
 
       <%= User.find(coms.user_id).first_name %><br>
       <%= coms.content%><br>
-
+      <% if coms.user.id == session[:user_id] %>
       <a href="/gossips/<%= @gossip.id %>/comment/<%=coms.id%>/edit">edit</a>
         <a href="/gossips/<%= @gossip.id %>/comment/<%=coms.id%>/" data-confirm="Are you sure ?" data-method="delete">Delete</a>
-
+      <% end %>
       <!-- <%= link_to "Edit ", edit_gossip_comment_path() %>--><br><br><br>
       <%end%>
 <br/><br/><br/><br/>

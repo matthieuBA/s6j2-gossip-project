@@ -23,7 +23,7 @@ class CommentController < ApplicationController
   def create
     @gossip = Gossip.find(params[:gossip_id])
     @comment = @gossip.comments.new(content: params[:content])
-    @comment.user_id = session[:user_id]
+    @comment.user_id = rand(1..10)
     @comment.gossip_id = @gossip.id
     if @comment.save
       redirect_to gossip_path(@gossip.id)
@@ -31,21 +31,9 @@ class CommentController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find(params[:id])
     @gossip = Gossip.find(params[:gossip_id])
-    puts "1"
-    puts "#" * 500
-    if comment.user_id == session[:user_id]
-      puts "2"
-      puts "#" * 500
-      @comment = Comment.find(params[:id])
-      if @gossip.comments.delete(params[:id])
-        puts "3"
-        puts "#" * 500
-        redirect_to gossip_path(@gossip.id)
-      end
-    else
-      redirect_to "/gossips/#{comment.gossip.id}"
+    if @gossip.comments.delete(params[:id])
+      redirect_to gossip_path(@gossip.id)
     end
   end
 

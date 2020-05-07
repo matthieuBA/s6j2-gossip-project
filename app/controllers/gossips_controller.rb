@@ -15,6 +15,7 @@ class GossipsController < ApplicationController
     #@gossips = Gossip.find_by(id:params[:id])
     @gossip = Gossip.find_by(id: params[:id])
     @gossip_comments_count = @gossip.comments.all.count
+    @gossip_likes_count = @gossip.likes.all.count
   end
 
   def new
@@ -79,7 +80,7 @@ class GossipsController < ApplicationController
   def authenticate_user
     unless current_user
       flash[:danger] = "Please log in."
-      redirect_to new_user_path
+      redirect_to new_session_path
     end
   end
 end

@@ -3,13 +3,16 @@
   <%= value %>
 </div>
 <% end %>
-<h1>Welcome</h1>
 <% if logged_in? %>
-<h1>You are Logged In, <%= current_user.email %></h1>
-<%end%>
+<h1>You are Logged As : , <%= current_user.email %></h1>
+<%= button_to "Se déconnecter", session_path(session.id), method: :delete %>
+<% else %>
 <%= button_to "Login", new_session_path, method: :get%>
 <%= button_to "Sign Up", new_user_path, method: :get%>
-<%= button_to "Se déconnecter", session_path(session.id), method: :delete %>
+<%end%>
+
+
+
 
 
 
@@ -17,10 +20,8 @@
 
 <% user = User.find_by(id: gossip.user_id) %>
 <div class="list-group">
-   <% if user.id == session[:user_id] %>
-   <a href="<%= gossip_path(gossip.id) %>" class="list-group-item list-group-item-action">
-   <% end %>
-  
+
+  <a href="<%= gossip_path(gossip.id) %>" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1"><%= gossip.title %></h5>
       
@@ -32,8 +33,10 @@
     </a>
     <a href="/gossips/<%= gossip.id %>/comment/<%= gossip.id %>" class="list-group-item list-group-item-action"> <%= gossip_comments_count %> </a>
     <a href="<%= user_path(user.id) %>" class="list-group-item list-group-item-action"> <%=user.first_name%>  <%=user.last_name%></a>
-    <a href="<%= gossip_path(gossip.id) %>" class="btn btn-danger" data-confirm="etes vous sur de vouloir supprimer ce gossip ?" data-method="DELETE"> SUPPRIMER</a>
-
+    
+   <% if user.id == session[:user_id] %>
+   <a href="<%= gossip_path(gossip.id) %>" class="btn btn-danger" data-confirm="etes vous sur de vouloir supprimer ce gossip ?" data-method="DELETE"> SUPPRIMER</a>
+   <% end %>
 </div>
 <br/>
 <% end %>
