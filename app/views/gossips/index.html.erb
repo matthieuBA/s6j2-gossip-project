@@ -1,13 +1,3 @@
-<% flash.each do |key, value| %>
-<div id="close" class="<%= flash_class(key) %>" role="alert">
-  <%= value %>
-</div>
-<% end %>
-
-
-
-
-
 
 
 <% @gossips.each do |gossip| %>
@@ -26,8 +16,12 @@
     <% gossip_likes_count = gossip.likes.all.count %>
     <p class="mb-1"><%= gossip.content %></p>
     </a>
-    <a href="/gossips/<%= gossip.id %>/comment/<%= gossip.id %>" class="list-group-item list-group-item-action"> <%= gossip_comments_count %> </a>
-    <% if logged_in? %>
+    
+
+<a href="/gossips/<%= gossip.id %>/comment/<%= gossip.id %>" class="list-group-item list-group-item-action"> Comments : <%= gossip_comments_count %> <p class="mb-1">Likes (<%= gossip_likes_count %>)</p></a>
+
+    <a href="<%= user_path(user.id) %>" class="list-group-item list-group-item-action">User : <%=user.first_name%>  <%=user.last_name%></a>
+        <% if logged_in? %>
     <% pre_like = gossip.likes.find { |like| like.user_id == session[:user_id]} %>
 <% if pre_like %>
   <%= button_to 'Unlike', gossip_like_path(gossip, pre_like), method: :delete %>
@@ -35,12 +29,10 @@
   <%= button_to 'Like', gossip_likes_path(gossip), method: :post %>
 <% end %>
 <%end%>
-<h2>Likes (<%= gossip_likes_count %>)</h2>
-    <a href="<%= user_path(user.id) %>" class="list-group-item list-group-item-action"> <%=user.first_name%>  <%=user.last_name%></a>
-    
    <% if user.id == session[:user_id] %>
    <a href="<%= gossip_path(gossip.id) %>" class="btn btn-danger" data-confirm="etes vous sur de vouloir supprimer ce gossip ?" data-method="DELETE"> SUPPRIMER</a>
    <% end %>
+
 </div>
 <br/>
 <% end %>

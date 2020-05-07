@@ -14,7 +14,7 @@ class CommentController < ApplicationController
   def show
     @comment = Comment.new
     @gossip = Gossip.find(params[:id])
-
+    @gossip_likes_count = @gossip.likes.all.count
     @gossip_comments_count = @gossip.comments.all.count
     @gossip_comments = @gossip.comments.all
     # Méthode qui récupère le potin concerné et l'envoie à la view show (show.html.erb) pour affichage
@@ -26,22 +26,20 @@ class CommentController < ApplicationController
     @comment.user_id = session[:user_id]
     @comment.gossip_id = @gossip.id
     if @comment.save
-      redirect_to gossip_path(@gossip.id)
+      redirect_to "/gossips/#{@gossip.id}/comment/#{@gossip.id}/"
+    else
+      flash.now[:error] = "Not comented Gossip"
+      render ("new")
     end
   end
 
   def destroy
     comment = Comment.find(params[:id])
     @gossip = Gossip.find(params[:gossip_id])
-    puts "1"
-    puts "#" * 500
+
     if comment.user_id == session[:user_id]
-      puts "2"
-      puts "#" * 500
       @comment = Comment.find(params[:id])
       if @gossip.comments.delete(params[:id])
-        puts "3"
-        puts "#" * 500
         redirect_to gossip_path(@gossip.id)
       end
     else

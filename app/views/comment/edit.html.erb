@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Modification des commentaires</title>
+        <title>Comments editing</title>
     </head>
     <body>
 <!-- affichage modif -->
@@ -12,7 +12,7 @@
     <%end%></br>
 <!-- affichage erreur -->
     <% if @comment.errors.any? %>
-       <p>Nous n'avons pas réussi à modifié le commentaire pour la (ou les) raison(s) suivante(s) :</p>
+       <p>we can't modify comment for somes next reasons : </p>
        <ul>
         <% @comment.errors.full_messages.each do |message| %>
             <li><%= message %></li>

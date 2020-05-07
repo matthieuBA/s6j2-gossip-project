@@ -11,3 +11,12 @@
       <%= submit_tag "Create comment" %>
 
     <% end %>
+
+    <% if @comment.errors.any? %>
+  <p>Nous n'avons pas réussi à commenter le potin pour la (ou les) raison(s) suivante(s) :</p>
+  <ul>
+    <% @comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>

@@ -8,9 +8,11 @@
 <% end %>
 <form action= <%= gossips_path %> method="POST">
   <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %> >
-  <input type="text" name="gossip_title">
-  <input type="text" name="gossip_content">
-  <input type="submit" value="create gossips">
+  <p>Gossip Title : </p>
+  <input type="text" name="gossip_title"><br/>
+  <p>Gossip Content : </p>
+  <input type="text" name="gossip_content"><br/>
+  <input type="submit" value="create gossips"><br/>
 </form>
 <% if @gossip.errors.any? %>
   <p>Nous n'avons pas réussi à créer le potin pour la (ou les) raison(s) suivante(s) :</p>

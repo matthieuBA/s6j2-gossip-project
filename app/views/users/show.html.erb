@@ -3,24 +3,35 @@
 
 <div class="card" >
   <div class="card-body">
-    <h5 class="card-title"><%= @user.first_name %> <%= @user.last_name %></h5>
-    <h6 class="card-subtitle mb-2 text-muted"><%= @user.email %></h6>
-    <p class="card-text"><%= @user.description %></p>
-    City : <a class="card-link"><%= link_to "#{city.name} ", city_path(city.id) %></a><br/>
+    <h5 class="card-title">First and Last Name : <%= @user.first_name %> <%= @user.last_name %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">Email : <%= @user.email %></h6>
+    <p class="card-text">Description : <%= @user.description %></p>
+    <a class="card-link">City : <%= link_to "#{city.name} ", city_path(city.id) %></a><br/>
   </div>
 </div>
 <% gossips=Gossip.all %>
 <% gossips.each do |gossip| %>
-
+<% gossip_likes_count = gossip.likes.all.count %>
+<% gossip_comments_count = gossip.comments.all.count %>
 <% user = User.find_by(id: gossip.user_id) %>
 <% if @user == user  %>
 <div class="card" >
   <div class="card-body">
-    <h5 class="card-title"><%= gossip.title %></h5>
-    <h6 class="card-subtitle mb-2 text-muted"><%= @user.first_name %> <%= @user.last_name %></h6>
-    <p class="card-text"><%= gossip.content %></p>
-    Gossip : <a class="card-link"><%= link_to "#{gossip.id}", gossip_path(gossip.id) %></a><br/>
-    City : <a class="card-link"><%= link_to "#{city.name} ", city_path(city.id) %></a><br/>
+    <h5 class="card-title">Title : <%= gossip.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">First and Last Name : <%= @user.first_name %> <%= @user.last_name %></h6>
+    <p class="card-text">Content : <%= gossip.content %></p>
+    <a class="card-link">Gossip : <%= link_to "#{gossip.id}", gossip_path(gossip.id) %></a><br/>
+    <a class="card-link">City : <%= link_to "#{city.name} ", city_path(city.id) %></a><br/>
+    <p class="mb-1">Likes (<%= gossip_likes_count %>)</p>
+    <p class="mb-1">Comments : (<%= gossip_comments_count %>)</p>
+<% if logged_in? %>
+    <% pre_like = gossip.likes.find { |like| like.user_id == session[:user_id]} %>
+<% if pre_like %>
+  <%= button_to 'Unlike', gossip_like_path(gossip, pre_like), method: :delete %>
+<% else %>
+  <%= button_to 'Like', gossip_likes_path(gossip), method: :post %>
+<% end %>
+<%end%>
   </div>
 </div>
 <% end %>

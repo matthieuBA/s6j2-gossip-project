@@ -10,6 +10,8 @@
 </div>
 <% gossips=Gossip.all %>
 <% gossips.each do |gossip| %>
+<% gossip_likes_count = gossip.likes.all.count %>
+<% gossip_comments_count = gossip.comments.all.count %>
 <% user=User.find_by(id: gossip.user_id )%>
 <% city = (City.find_by(id: user.city_id))%>
 
@@ -21,6 +23,16 @@
 
     <p class="card-text"><%= gossip.content %></p>
     Gossip : <a href="#" class="card-link"><%= link_to "#{gossip.id}", gossip_path(gossip.id) %></a><br/>
+    <p class="mb-1">Likes (<%= gossip_likes_count %>)</p>
+    <p class="mb-1">Comments : (<%= gossip_comments_count %>)</p>
+    <% if logged_in? %>
+    <% pre_like = gossip.likes.find { |like| like.user_id == session[:user_id]} %>
+<% if pre_like %>
+  <%= button_to 'Unlike', gossip_like_path(gossip, pre_like), method: :delete %>
+<% else %>
+  <%= button_to 'Like', gossip_likes_path(gossip), method: :post %>
+<% end %>
+<%end%>
   </div>
 </div>
 <% end %>

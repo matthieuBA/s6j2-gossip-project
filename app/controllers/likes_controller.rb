@@ -12,7 +12,7 @@ class LikesController < ApplicationController
       @like.user_id = session[:user_id]
       @like.gossip_id = @gossip.id
       if @like.save
-        redirect_to gossip_path(@gossip.id)
+        redirect_back(fallback_location: root_path)
       end
     end
   end
@@ -20,7 +20,7 @@ class LikesController < ApplicationController
   def destroy
     @gossip = Gossip.find(params[:gossip_id])
     if @gossip.likes.delete(params[:id])
-      redirect_to gossip_path(@gossip.id)
+      redirect_back(fallback_location: root_path)
     end
   end
 

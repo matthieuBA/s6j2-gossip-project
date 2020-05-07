@@ -4,15 +4,21 @@
 <% city = (City.find_by(id: user.city_id))%>
 User : <a class="card-link"><%= link_to "#{user.first_name+" "+user.last_name}", user_path(user.id) %></a><br/>
 City : <a class="card-link"><%= link_to "#{city.name} ", city_path(city.id) %></a><br/>
-<h2>Commentaires (<%= @gossip_comments_count %>)</h2>
+<br/>
+<p>Comments (<%= @gossip_comments_count %>)</p>
+<p>Likes (<%= @gossip_likes_count %>)</p>
    <% if user.id == session[:user_id] %>
-   <%= link_to "edit gossip", edit_gossip_path%>
+   <br/>
+   <%= button_to "Edit Gossip", edit_gossip_path, method: :get  %>
    <% end %>
-   <%= link_to "commentaires", gossip_comment_path(params[:id]) %>
+   <br/>
+   <%= button_to "Comments", gossip_comment_path(params[:id]), method: :get  %>
 <% pre_like = @gossip.likes.find { |like| like.user_id == session[:user_id]} %>
 <% if pre_like %>
+<br/>
   <%= button_to 'Unlike', gossip_like_path(@gossip, pre_like), method: :delete %>
 <% else %>
+<br/>
   <%= button_to 'Like', gossip_likes_path(@gossip), method: :post %>
 <% end %>
-<h2>Likes (<%= @gossip_likes_count %>)</h2>
+
