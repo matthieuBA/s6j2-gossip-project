@@ -9,7 +9,8 @@
 <%= f.label :password%><br> 
 <%= f.password_field :password%><br> 
 <%= f.label :city_id%><br> 
-<%= f.text_field :city_id, value: '1'%><br> 
+<%sample_city=City.all.sample%>
+<%= f.text_field :city_id, value: sample_city.id%>  <%=sample_city.name%> <br> 
 <%= f.submit %>
 
 <%end%>
