@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   resources :users
   resources :cities
   resources :sessions
-  get "/contact", to: "static#contact"
-  get "/team", to: "static#team"
+  resources :contacts, only: [:index]
+  resources :teams, only: [:index]
 end
