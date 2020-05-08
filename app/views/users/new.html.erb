@@ -11,6 +11,8 @@
 <%= f.label :city_id%><br> 
 <%sample_city=City.all.sample%>
 <%= f.text_field :city_id, value: sample_city.id%>  <%=sample_city.name%> <br> 
+<%= f.label :remember_check%><br> 
+<%= f.check_box :remember_check,{:checked=>true}%><br> 
 <%= f.submit %>
 
 <%end%>

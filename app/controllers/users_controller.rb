@@ -7,7 +7,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(params.require(:user).permit(:email, :password, :first_name, :last_name, :city_id))
+    @user = User.create(params.require(:user).permit(:email, :password, :first_name, :last_name, :city_id, :remember_check))
+    if @user.remember_check
+      remember(@user)
+    end
     session[:user_id] = @user.id
     redirect_to gossips_path
   end

@@ -29,6 +29,7 @@
   <%= button_to 'Like', gossip_likes_path(gossip), method: :post %>
 <% end %>
 <%end%>
+
    <% if user.id == session[:user_id] %>
    <a href="<%= gossip_path(gossip.id) %>" class="btn btn-danger" data-confirm="etes vous sur de vouloir supprimer ce gossip ?" data-method="DELETE"> SUPPRIMER</a>
    <% end %>

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users
   resources :cities
   resources :sessions
+
   resources :contacts, only: [:index]
   resources :teams, only: [:index]
 end
