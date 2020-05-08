@@ -1,6 +1,8 @@
-# User.destroy_all
-# City.destroy_all
-# Gossip.destroy_all
+User.destroy_all
+City.destroy_all
+Gossip.destroy_all
+Comment.destroy_all
+Like.destroy_all
 # Gostag.destroy_all
 # Tag.destroy_all
 # PrivateMessage.destroy_all
@@ -9,7 +11,7 @@ require "faker"
 
 10.times do |i|
   city = City.create(name: Faker::Address.city, zip_code: Faker::Address.zip_code)
-  tag = Tag.create(title: Faker::Superhero.descriptor)
+  # tag = Tag.create(title: Faker::Superhero.descriptor)
   puts "create city #{i}"
 end
 puts "END OF CITIES"
